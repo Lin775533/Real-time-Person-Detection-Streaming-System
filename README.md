@@ -16,9 +16,10 @@ A high-performance, real-time face detection and streaming platform built with F
 4. [Performance](#performance)
 5. [Technology Stack](#technology-stack)
 6. [Setup Guide](#setup-guide)
-7. [Configuration](#configuration)
-8. [API Reference](#api-reference)
-9. [Contributing](#contributing)
+7. [Demo](#Demo)
+8. [Configuration](#configuration)
+9. [API Reference](#api-reference)
+10. [Contributing](#contributing)
 
 ## Overview
 
@@ -161,7 +162,8 @@ http://localhost:5000
 └── templates/
     └── index.html     # Main application template
 ```
-
+## Demo
+![Demo](gif/demo.gif)
 ## Configuration
 
 ### Core Settings
