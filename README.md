@@ -163,7 +163,7 @@ http://localhost:5000
     └── index.html     # Main application template
 ```
 ## Demo
-![Demo](gif/demo.gif)
+![Demo](gif/Demo.gif)
 ## Configuration
 
 ### Core Settings
