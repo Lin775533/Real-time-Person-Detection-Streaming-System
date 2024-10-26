@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YCL Streaming Room</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Username Modal -->
+    <div id="usernameModal" class="modal">
+        <div class="modal-content">
+            <h2>Welcome to YCL Streaming Room</h2>
+            <div class="username-input-container">
+                <input type="text" id="usernameInput" placeholder="Enter your name" maxlength="20">
+                <button id="joinStream" class="primary-btn">Join Stream</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="display: none;">
+        <header class="header">
+            <h1>YCL Streaming Room</h1>
+            <div class="creator-info">
+                <img src="/api/placeholder/40/40" alt="Yu Chun Lin">
+                <div>
+                    <div>Created by Yu Chun Lin</div>
+                    <div class="status-badge">Live</div>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="video-container">
+                <img id="streamImage" alt="Server Stream">
+                <div id="recordingIndicator" class="recording-indicator"></div>
+                <div class="stream-info">
+                    <div id="faceCount">Faces Detected: 0</div>
+                    <div class="status-badge" id="detectionStatus">Detection: ON</div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="toggleProcessing" class="primary-btn">Toggle Detection</button>
+                <button id="startRecording" class="primary-btn">Start Recording</button>
+                <button id="stopRecording" class="error-btn" disabled>Stop Recording</button>
+            </div>
+        </main>
+        
+        <aside class="sidebar">
+            <div class="clients-panel">
+                <h2>Connected Viewers</h2>
+                <div id="clientCount" class="status-badge">Total Viewers: 0</div>
+                <div id="clientList" class="client-list"></div>
+            </div>
+            
+            <div class="chat-panel">
+                <h2>Live Chat</h2>
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Type a message...">
+                    <button id="sendMessage" class="primary-btn">Send</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/streamViewer.js') }}"></script>
+</body>
+</html>
