@@ -6,6 +6,7 @@ from datetime import datetime
 import os
 import torch
 import time
+
 class FaceDetector:
     def __init__(self, config):
         self.config = config
@@ -16,7 +17,7 @@ class FaceDetector:
         self.video_writer = None
         self.processed_frame = None
         self.num_faces = 0
-        self.detection_enabled = True  # Add this line for toggle functionality
+        self.detection_enabled = True
         print("FaceDetector initialized")
         
     def _load_model(self):
@@ -63,6 +64,53 @@ class FaceDetector:
             self.video_writer = None
         print("Camera stopped")
     
+    def start_recording(self, output_path):
+        """Start recording video to the specified output path"""
+        try:
+            if not self.camera or not self.is_running:
+                print("Cannot start recording: camera not running")
+                return False
+                
+            # Get camera properties
+            width = int(self.camera.get(cv2.CAP_PROP_FRAME_WIDTH))
+            height = int(self.camera.get(cv2.CAP_PROP_FRAME_HEIGHT))
+            fps = int(self.camera.get(cv2.CAP_PROP_FPS))
+            
+            # Create video writer
+            fourcc = cv2.VideoWriter_fourcc(*'XVID')
+            self.video_writer = cv2.VideoWriter(
+                output_path, 
+                fourcc, 
+                fps, 
+                (width, height)
+            )
+            
+            if not self.video_writer.isOpened():
+                print("Failed to create video writer")
+                return False
+                
+            self.recording = True
+            print(f"Started recording to {output_path}")
+            return True
+            
+        except Exception as e:
+            print(f"Error starting recording: {e}")
+            return False
+    
+    def stop_recording(self):
+        """Stop the current recording"""
+        try:
+            if self.video_writer:
+                self.video_writer.release()
+                self.video_writer = None
+            self.recording = False
+            print("Recording stopped")
+            return True
+            
+        except Exception as e:
+            print(f"Error stopping recording: {e}")
+            return False
+    
     def get_current_frame(self):
         if not self.camera or not self.is_running:
             return None, 0
@@ -102,10 +150,11 @@ class FaceDetector:
                                        (0, 255, 0),
                                        2)
             
-            # Always show detection status, even when disabled
+            # Always show detection status and recording status
             status_text = "Detection: ON" if self.detection_enabled else "Detection: OFF"
+            recording_text = " | Recording" if self.recording else ""
             cv2.putText(frame,
-                       f'{status_text} | Detected: {num_faces if self.detection_enabled else 0}',
+                       f'{status_text}{recording_text} | Detected: {num_faces if self.detection_enabled else 0}',
                        (10, 30),
                        cv2.FONT_HERSHEY_SIMPLEX,
                        1,
