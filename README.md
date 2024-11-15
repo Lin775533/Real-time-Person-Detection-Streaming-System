@@ -21,7 +21,7 @@ A high-performance, real-time face detection and streaming platform built with F
 9. [API Reference](#api-reference)
 10. [Contributing](#contributing)
 
-## Overviewwwww
+## Overview
 
 The Real-time Face Detection Streaming Platform is an enterprise-grade solution that combines advanced computer vision capabilities with real-time web streaming. It enables multiple users to simultaneously connect to a video stream with integrated face detection, while providing interactive features such as live chat and video recording.
 
